@@ -9,25 +9,25 @@ mkdir -pv ${this_backup_path}
 
 for db in [fandian waimaibao gaoyang gaoyang_db]
 do
-        if [ -d ${mysql_db_path}${db} ]; then
-               /usr/bin/mysqldump $db --hex-blob -u proxy -pfdw@20120 > ${this_backup_path}/${db}.sql
-		echo "${db} done."
-        fi
+    if [ -d ${mysql_db_path}${db} ]; then
+           /usr/bin/mysqldump $db --hex-blob -u proxy -pfdw@20120 > ${this_backup_path}/${db}.sql
+    echo "${db} done."
+    fi
 done
 
 clogdir=/p/logs/cherokee/
 
 for x in `ls ${clogdir}`
 do
-        log=${clogdir}${x}/access.log
-        if [ -f $log ]; then
-                mv ${log} ${log}.${datenow}
-        fi;
+    log=${clogdir}${x}/access.log
+    if [ -f $log ]; then
+            mv ${log} ${log}.${datenow}
+    fi;
 
-	errorlog=${clordir}${x}/error.log
-	if [ -f $errorlog ]; then
-		mv ${errorlog} ${errorlog}.${datenow}
-	fi
+    errorlog=${clordir}${x}/error.log
+    if [ -f $errorlog ]; then
+        mv ${errorlog} ${errorlog}.${datenow}
+    fi
 done
 
 kill -USR1 `cat /var/run/cherokee.pid`
