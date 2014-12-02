@@ -47,14 +47,8 @@ rm -rf logs_${datenow}.tar.bz2
 rm -rf ${datenow}
 
 mkdir -pv syslogs
-cp -R /var/log/wtmp ./syslogs
-cp -R /var/log/memcachedb.log ./syslogs
-cp -R /var/log/dmesg ./syslogs
-cp -R /var/log/messages ./syslogs
-cp -R /var/log/memcache.log ./syslogs
-cp -R /var/log/syslog ./syslogs
-cp -R /var/log/auth.log ./syslogs
-cp -R /var/log/lastlog ./syslogs
+cp -R /var/log/* ./syslogs
+
 tar jcf syslogs_${datenow}.tar.bz2 syslogs
 scp -P 6510 syslogs_${datenow}.tar.bz2 pysche@192.168.1.92:/p/backup/servers/230/
 rm -rf syslogs_${datenow}.tar.bz2
